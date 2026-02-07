@@ -1,12 +1,184 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Day</title>
+    <title>Valentine's Day 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+        }
+
+        h1 {
+            color: #e91e63;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .buttons {
+            position: relative;
+            height: 150px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        #yesBtn {
+            background: #4caf50;
+            color: white;
+            position: absolute;
+            top: 60px;
+            left: 20%;
+            transform: translateX(-50%);
+        }
+
+        #yesBtn:hover {
+            background: #45a049;
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        #noBtn {
+            background: #f44336;
+            color: white;
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: all 0.1s ease;
+        }
+
+        #noBtn:hover {
+            background: #da190b;
+        }
+
+        #loveImg, #angryImg {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            margin-top: 20px;
+            display: none;
+            object-fit: cover;
+        }
+
+        #angryText {
+            display: none;
+            color: #f44336;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 22px;
+            }
+
+            button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+
+            #loveImg, #angryImg {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Happy Valentine's Day!</h1>
-    <p>Celebrate love and friendship on this special day!</p>
+    <div class="card">
+        <h1>Will you be my valentine? 💖</h1>
+
+        <div class="buttons">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
+
+        <img id="loveImg" src="https://i.postimg.cc/4dcPKV9n/images_(6)_(3).jpg" alt="Love">
+        <img id="angryImg" src="https://i.postimg.cc/BZL9gVxP/angry_cat_sassy_cat.gif" alt="Angry">
+        <div id="angryText">Stop messing with me! 😾</div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById("yesBtn");
+        const noBtn = document.getElementById("noBtn");
+        const loveImg = document.getElementById("loveImg");
+        const angryImg = document.getElementById("angryImg");
+        const angryText = document.getElementById("angryText");
+        const buttonsContainer = document.querySelector(".buttons");
+
+        let noCount = 0;
+
+        yesBtn.addEventListener("click", function() {
+            loveImg.style.display = "block";
+            noBtn.style.display = "none";
+            yesBtn.style.display = "none";
+            angryImg.style.display = "none";
+            angryText.style.display = "none";
+        });
+
+        noBtn.addEventListener("click", function() {
+            noCount++;
+
+            if (noCount >= 4) {
+                angryImg.style.display = "block";
+                angryText.style.display = "block";
+                noBtn.style.display = "none";
+                yesBtn.style.display = "none";
+                return;
+            }
+
+            // Get buttons container bounds (NOT card)
+            const containerRect = buttonsContainer.getBoundingClientRect();
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+
+            const padding = 10;
+            
+            // Maximum position inside .buttons container
+            const maxX = buttonsContainer.offsetWidth - btnWidth - padding;
+            const maxY = buttonsContainer.offsetHeight - btnHeight - padding;
+
+            // Random position
+            const randomX = Math.floor(Math.random() * (maxX - padding)) + padding;
+            const randomY = Math.floor(Math.random() * (maxY - padding)) + padding;
+
+            noBtn.style.left = randomX + "px";
+            noBtn.style.top = randomY + "px";
+            noBtn.style.transform = "none"; // Remove transform
+        });
+    </script>
 </body>
 </html>
